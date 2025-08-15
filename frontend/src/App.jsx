@@ -10,7 +10,7 @@ function App() {
 
   const chechauth = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/check", {
+      const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/auth/check", {
         method: "GET",
         credentials: 'include',
         headers: { "Content-Type": "application/json" }
