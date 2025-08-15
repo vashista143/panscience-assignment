@@ -605,148 +605,157 @@ useEffect(() => {
 
       {/* Task list for this user */}
       {userTasks.length === 0 ? (
-        <p className="text-gray-500 flex justify-center">No tasks assigned</p>
-      ) : (
-        <div className="space-y-4 mt-2">
-          {userTasks.map(task => (
-            <div key={task._id} className="flex justify-center my-6">
-              <div className="w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4">
-                
-      <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
-        {editTaskId === task._id ? (
-          <input
-            value={editForm.title}
-            onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-            className="border px-2 py-1 rounded"
-          />
-        ) : (
-          <h2 className="text-lg font-semibold text-gray-800">{task.title}</h2>
-        )}
+  <p className="text-gray-500 flex justify-center">No tasks assigned</p>
+) : (
+  <div className="space-y-4 mt-2">
+    {userTasks.map(task => (
+      <div key={task._id} className="flex justify-center my-6 px-2 sm:px-4">
+        <div className="w-full sm:w-[80%] lg:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4">
+          
+          {/* Title & Edit */}
+          <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b border-gray-200 pb-2 mb-2 gap-2">
+            {editTaskId === task._id ? (
+              <input
+                value={editForm.title}
+                onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                className="border px-2 py-1 rounded w-full sm:w-auto"
+              />
+            ) : (
+              <h2 className="text-lg font-semibold text-gray-800">{task.title}</h2>
+            )}
 
-        <div className="flex gap-2">
-          {editTaskId === task._id ? (
-            <button
-              onClick={handleSave}
-              className="bg-green-500 text-white px-2 py-1 rounded"
-            >
-              Save
-            </button>
-          ) : (
-            <button
-              onClick={() => handleEdit(task)}
-              className="bg-blue-500 text-white px-2 py-1 rounded"
-            >
-              <FiEdit />
-            </button>
+            <div className="flex gap-2 flex-wrap">
+              {editTaskId === task._id ? (
+                <button
+                  onClick={handleSave}
+                  className="bg-green-500 text-white px-2 py-1 rounded"
+                >
+                  Save
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleEdit(task)}
+                  className="bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                  <FiEdit />
+                </button>
+              )}
+              <button
+                onClick={() => handleDelete(task)}
+                className="bg-red-500 text-white px-2 py-1 rounded"
+              >
+                <MdDelete />
+              </button>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="mb-3 text-sm sm:text-base">
+            <span className="font-medium">Description: </span>
+            {editTaskId === task._id ? (
+              <textarea
+                value={editForm.description}
+                onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                className="border w-full px-2 py-1 rounded"
+              />
+            ) : (
+              task.description
+            )}
+          </div>
+
+          {/* Status & Due Date */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t border-gray-200 pt-2 gap-2">
+            <div>
+              <span className="font-medium">Status: </span>
+              {editTaskId === task._id ? (
+                <select
+                  value={editForm.status}
+                  onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
+                  className="border rounded px-2 py-1"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                </select>
+              ) : (
+                task.status
+              )}
+            </div>
+
+            <div>
+              <span className="font-medium">Due: </span>
+              {editTaskId === task._id ? (
+                <input
+                  type="date"
+                  value={editForm.dueDate}
+                  onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })}
+                  className="border rounded px-2 py-1"
+                />
+              ) : (
+                new Date(task.dueDate).toLocaleDateString()
+              )}
+            </div>
+          </div>
+
+          {/* Priority */}
+          <div className="mt-2">
+            <span className="font-medium">Priority: </span>
+            {editTaskId === task._id ? (
+              <select
+                value={editForm.priority}
+                onChange={(e) => setEditForm({ ...editForm, priority: e.target.value })}
+                className="border rounded px-2 py-1"
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            ) : (
+              <span
+                className={`px-3 py-1 text-sm font-medium rounded-full ${
+                  task.priority === "high"
+                    ? "bg-red-100 text-red-600"
+                    : task.priority === "medium"
+                    ? "bg-yellow-100 text-yellow-600"
+                    : "bg-green-100 text-green-600"
+                }`}
+              >
+                {task.priority}
+              </span>
+            )}
+          </div>
+
+          {/* Files */}
+          {task.files && task.files.length > 0 && (
+            <div className="mt-4 flex flex-col sm:flex-row gap-4 items-start border-t border-gray-200 pt-2">
+              <span className="font-medium">Files:</span>
+              <div className="flex flex-wrap gap-4">
+                {task.files.map((file, index) => (
+                  <div key={index} className="flex flex-col items-center gap-2">
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 underline"
+                    >
+                      <img
+                        src="./pdf.png"
+                        className="h-[100px] w-[70px] object-cover"
+                        alt="file"
+                      />
+                      <p className="text-xs text-center">{file.name}</p>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
-          <button
-            onClick={() => handleDelete(task)}
-            className="bg-red-500 text-white px-2 py-1 rounded"
-          >
-            <MdDelete />
-          </button>
         </div>
       </div>
-
-      {/* Description */}
-      <div className="mb-3">
-        <span className="font-medium">Description: </span>
-        {editTaskId === task._id ? (
-          <textarea
-            value={editForm.description}
-            onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-            className="border w-full px-2 py-1 rounded"
-          />
-        ) : (
-          task.description
-        )}
-      </div>
-
-      {/* Status & Due Date */}
-      <div className="flex justify-between items-center border-t border-gray-200 pt-2">
-        <div>
-          <span className="font-medium">Status: </span>
-          {editTaskId === task._id ? (
-            <select
-              value={editForm.status}
-              onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-              className="border rounded px-2 py-1"
-            >
-              <option value="pending">Pending</option>
-              <option value="in-progress">In Progress</option>
-              <option value="completed">Completed</option>
-            </select>
-          ) : (
-            task.status
-          )}
-        </div>
-
-        <div>
-          <span className="font-medium">Due: </span>
-          {editTaskId === task._id ? (
-            <input
-              type="date"
-              value={editForm.dueDate}
-              onChange={(e) => setEditForm({ ...editForm, dueDate: e.target.value })}
-              className="border rounded px-2 py-1"
-            />
-          ) : (
-            new Date(task.dueDate).toLocaleDateString()
-          )}
-        </div>
-      </div>
-
-      <div className="mt-2">
-        <span className="font-medium">Priority: </span>
-        {editTaskId === task._id ? (
-          <select
-            value={editForm.priority}
-            onChange={(e) => setEditForm({ ...editForm, priority: e.target.value })}
-            className="border rounded px-2 py-1"
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        ) : (
-          <span
-            className={`px-3 py-1 text-sm font-medium rounded-full ${
-              task.priority === "high"
-                ? "bg-red-100 text-red-600"
-                : task.priority === "medium"
-                ? "bg-yellow-100 text-yellow-600"
-                : "bg-green-100 text-green-600"
-            }`}
-          >
-            {task.priority}
-          </span>
-        )}
-      </div>
-      {task.files && task.files.length > 0 && (
-  <div className="mt-4 flex gap-5 items-center border-t border-gray-200 pt-2">
-    <span className="font-medium">Files:</span>
-    <div className="flex gap-5">
-      {task.files?.map((file, index) => (
-  <div key={index} className="flex items-center gap-2">
-    <a
-      href={file.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-blue-600 underline"
-    >
-      <div className='flex-col'><img src='./pdf.png' className='h-[100px] w-[70px]'/> {file.name}</div>
-    </a>
-  </div>
-))}
-
-    </div>
+    ))}
   </div>
 )}
-    </div>
-            </div>
-          ))}
-        </div>
-      )}
+
     </div>
   );
 })}
