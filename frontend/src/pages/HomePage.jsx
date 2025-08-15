@@ -468,7 +468,7 @@ useEffect(() => {
     <div className="flex flex-col sm:flex-row gap-4 sm:gap-3 items-start sm:items-center justify-between">
       
       {/* User Info */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-row sm:flex-col gap-2">
         <h2 className="text-lg sm:text-xl font-bold text-gray-800">{user.name}</h2>
         
         <div className="flex flex-col sm:flex-row sm:gap-10 text-xs sm:text-sm text-gray-800">
@@ -505,15 +505,17 @@ useEffect(() => {
 
 
   
-      {openFormUserId === user._id && (
-        <div className="flex justify-center mt-6">
-          <form
-            onSubmit={handleSubmit(onadminSubmit(user._id))}
-            className="w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-6 space-y-4"
-          >
-      <h2 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">
+{openFormUserId === user._id && (
+  <div className="flex justify-center mt-6 px-2 sm:px-4">
+    <form
+      onSubmit={handleSubmit(onadminSubmit(user._id))}
+      className="w-full sm:w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4 sm:p-6 space-y-4"
+    >
+      <h2 className="text-lg sm:text-xl font-semibold text-gray-800 border-b border-gray-200 pb-2">
         Create New Task
       </h2>
+
+      {/* Task Title */}
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
           Task Title
@@ -522,10 +524,12 @@ useEffect(() => {
           id="title"
           type="text"
           {...register("title", { required: "Title is required" })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
         {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
       </div>
+
+      {/* Description */}
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
           Description
@@ -533,10 +537,12 @@ useEffect(() => {
         <textarea
           id="description"
           {...register("description", { required: "Description is required" })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
         {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
       </div>
+
+      {/* Status */}
       <div>
         <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
           Status
@@ -544,7 +550,7 @@ useEffect(() => {
         <select
           id="status"
           {...register("status", { required: "Status is required" })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
           <option value="pending">Pending</option>
           <option value="in-progress">In Progress</option>
@@ -552,6 +558,8 @@ useEffect(() => {
         </select>
         {errors.status && <p className="text-red-500 text-sm mt-1">{errors.status.message}</p>}
       </div>
+
+      {/* Priority */}
       <div>
         <label htmlFor="priority" className="block text-sm font-medium text-gray-700 mb-1">
           Priority
@@ -559,14 +567,16 @@ useEffect(() => {
         <select
           id="priority"
           {...register("priority", { required: "Priority is required" })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400"
         >
-          <option value="low" className='text-green-300'>Low</option>
-          <option value="medium" className='text-yellow-300'>Medium</option>
-          <option value="high" className='text-red-300'>High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
         {errors.priority && <p className="text-red-500 text-sm mt-1">{errors.priority.message}</p>}
       </div>
+
+      {/* Due Date */}
       <div>
         <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">
           Due Date
@@ -575,53 +585,58 @@ useEffect(() => {
           id="dueDate"
           type="date"
           {...register("dueDate", { required: "Due Date is required" })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-400"
         />
         {errors.dueDate && <p className="text-red-500 text-sm mt-1">{errors.dueDate.message}</p>}
       </div>
 
+      {/* File Upload */}
+      <div>
+        <label className="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">
+          Upload PDF Files (Max: 3 and less than 10mb)
+        </label>
+        {fileError && <p className="text-red-500 text-sm mt-2">{fileError}</p>}
+        <input
+          type="file"
+          className="w-full border rounded-md p-2 text-sm"
+          accept="application/pdf"
+          onChange={handleFileChange}
+          multiple
+        />
+        {files.length > 0 && (
+          <div className="mt-4">
+            <h3 className="font-semibold text-sm sm:text-base">Selected Files:</h3>
+            <ul className="list-disc pl-5 space-y-1">
+              {files.map((file, index) => (
+                <li key={index} className="flex flex-col sm:flex-row sm:items-center justify-between text-sm">
+                  <span>{file.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeFile(index)}
+                    className="text-red-500 hover:text-red-700 mt-1 sm:mt-0"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
 
-      <div className="container mx-auto p-8">
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">Upload PDF Files (Max: 3 and less than 10mb)</label>
-          {fileError && <p className="text-red-500 text-sm mt-2">{fileError}</p>}
-          <input
-            type="file"
-            className="file-input border rounded-md p-2"
-            accept="application/pdf"
-            onChange={handleFileChange}
-            multiple
-          />
-        </div>
-        <div className="mt-4">
-          <h3 className="font-semibold text-lg">Selected Files:</h3>
-          <ul className="list-disc pl-5">
-            {files.map((file, index) => (
-              <li key={index} className="flex items-center justify-between">
-                <span>{file.name}</span>
-                <button
-                  type="button"
-                  onClick={() => removeFile(index)}
-                  className="text-red-500 hover:text-red-700">
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-    </div>
+      {/* Submit Button */}
       <div className="flex justify-end">
         <button
           type="submit"
-          className="bg-indigo-500 text-white px-5 py-2 rounded-md hover:bg-indigo-600 transition-colors"
+          className="bg-indigo-500 text-white px-4 sm:px-5 py-2 rounded-md hover:bg-indigo-600 transition-colors text-sm sm:text-base"
         >
           Create Task
         </button>
       </div>
-      
     </form>
-        </div>
-      )}
+  </div>
+)}
+
 
       {/* Task list for this user */}
       {userTasks.length === 0 ? (
