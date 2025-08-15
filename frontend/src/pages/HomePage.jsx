@@ -461,39 +461,48 @@ useEffect(() => {
 
   return (
     <div key={user._id} className="mb-6">
-      <div className='justify-center flex'>
-<div className="w-full sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[50%] shadow-lg p-4">
-  <div className="flex gap-3 items-center justify-between">
-  <div>
-  <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
-  <div className='flex  gap-10'>
-  <h2 className="text-[10px]  text-gray-800">Email: {user.email}</h2>
-  <h2 className="text-[10px]  text-gray-800">Role: {user.role}</h2>
-  </div>
-  </div>
-  <div className='flex gap-3'>
-  <button
-    onClick={() => handleEditUser(user)}
-    className="bg-blue-500 text-white px-2 py-1 rounded"
-  >
-    <FiEdit />
-  </button>
-  <button
-    onClick={() => handleDeleteUser(user)}
-    className="bg-red-500 text-white px-2 py-1 rounded"
-  >
-    <MdDelete />
-  </button>
-  <button
-    onClick={() => toggleadminForm(user._id)}
-    className="bg-blue-500 border rounded-[10px] px-2 py-1"
-  >
-    {openFormUserId === user._id ? "Cancel" : "Create New Task"}
-  </button>
+      <div className="justify-center flex px-2 sm:px-4">
+  <div className="w-full sm:w-[90%] md:w-[80%] lg:w-[60%] xl:w-[50%] shadow-lg p-4 rounded-lg">
+    
+    {/* Top Container */}
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-3 items-start sm:items-center justify-between">
+      
+      {/* User Info */}
+      <div className="flex flex-col gap-2">
+        <h2 className="text-lg sm:text-xl font-bold text-gray-800">{user.name}</h2>
+        
+        <div className="flex flex-col sm:flex-row sm:gap-10 text-xs sm:text-sm text-gray-800">
+          <h2>Email: {user.email}</h2>
+          <h2>Role: {user.role}</h2>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-2 sm:gap-3">
+        <button
+          onClick={() => handleEditUser(user)}
+          className="bg-blue-500 text-white px-3 py-1 rounded"
+        >
+          <FiEdit />
+        </button>
+        <button
+          onClick={() => handleDeleteUser(user)}
+          className="bg-red-500 text-white px-3 py-1 rounded"
+        >
+          <MdDelete />
+        </button>
+        <button
+          onClick={() => toggleadminForm(user._id)}
+          className="bg-blue-500 border rounded-[10px] px-3 py-1 text-sm"
+        >
+          {openFormUserId === user._id ? "Cancel" : "Create New Task"}
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>
-</div>
-</div>
+
 
   
       {openFormUserId === user._id && (
