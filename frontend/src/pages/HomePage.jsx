@@ -856,22 +856,22 @@ useEffect(() => {
   }else{
     return(
     <div>
-      <div className='flex justify-end items-center gap-4 pt-1 pr-9'>
-  {/* Sort Dropdown */}
-  <select
-    value={sortOption}
-    onChange={(e) => setSortOption(e.target.value)}
-    className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-  >
+     <div className="flex flex-col sm:flex-row justify-end items-center gap-4 pt-1 sm:pr-9 px-4 sm:px-0">
+    {/* Sort Dropdown */}
+    <select
+      value={sortOption}
+      onChange={(e) => setSortOption(e.target.value)}
+      className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full sm:w-auto"
+    >
     <option value="">Sort by</option>
     <option value="dueDate">Due Date</option>
     <option value="priority">Priority</option>
     <option value="status">Status</option>
   </select>
   <div
-    onClick={() => setShowDetails(!showDetails)}
-    className="w-fit h-[32px] flex items-center gap-2 bg-white border border-gray-300 rounded-md px-4 py-1.5 cursor-pointer hover:shadow-sm "
-  >
+      onClick={() => setShowDetails(!showDetails)}
+      className="w-full sm:w-auto flex items-center gap-2 bg-white border border-gray-300 rounded-md px-4 py-1.5 cursor-pointer hover:shadow-sm"
+    >
     <div className="w-6 h-6 bg-indigo-500 rounded-full flex items-center justify-center text-white font-bold">
       {authuser.name[0].toUpperCase()}
     </div>
@@ -879,7 +879,7 @@ useEffect(() => {
   </div>
         </div>
       {showDetails && (
-                <div className="absolute right-0 mt-2 mr-2 bg-[#6363a0] text-white border rounded-lg shadow-lg w-fit z-50 pb-4 pt-3 px-4">
+    <div className="absolute right-0 mt-2 mr-2 bg-[#6363a0] text-white border rounded-lg shadow-lg w-fit max-w-[90%] sm:max-w-sm z-50 pb-4 pt-3 px-4">
                   <h3 className="text-md font-semibold mb-2">Account Info</h3>
                   <p className="text-sm text-white">Name: {authuser.name}</p>
                   <p className="text-sm text-white">Role: {authuser.role}</p>
@@ -888,17 +888,17 @@ useEffect(() => {
               )}
       
       
-      <div className="space-y-6">
+  <div className="space-y-6 px-2 sm:px-0">
 {usertasks.map((task) => (
   <div key={task._id} className="flex justify-center my-6">
-    <div className="w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4">
-      
-      <div className="flex justify-between items-center border-b border-gray-200 pb-2 mb-2">
-        {editTaskId === task._id ? (
+        <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4">
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200 pb-2 mb-2 gap-3 sm:gap-0">
+            {editTaskId === task._id ? (
           <input
             value={editForm.title}
             onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
-            className="border px-2 py-1 rounded"
+                className="border px-2 py-1 rounded w-full sm:w-auto"
           />
         ) : (
           <h2 className="text-lg font-semibold text-gray-800">{task.title}</h2>
@@ -928,7 +928,7 @@ useEffect(() => {
           </button>
         </div>
       </div>
-      <div className="mb-3">
+          <div className="mb-3 text-sm sm:text-base">
         <span className="font-medium">Description: </span>
         {editTaskId === task._id ? (
           <textarea
@@ -940,7 +940,7 @@ useEffect(() => {
           task.description
         )}
       </div>
-      <div className="flex justify-between items-center border-t border-gray-200 pt-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t border-gray-200 pt-2 gap-3 sm:gap-0">
         <div>
           <span className="font-medium">Status: </span>
           {editTaskId === task._id ? (
@@ -1002,7 +1002,7 @@ useEffect(() => {
       </div>
       {/* Files (PDF links) */}
 {task.files && task.files.length > 0 && (
-  <div className="mt-4 flex gap-5 items-center border-t border-gray-200 pt-2">
+            <div className="mt-4 flex flex-col sm:flex-row gap-5 items-start sm:items-center border-t border-gray-200 pt-2">
     <span className="font-medium">Files:</span>
     <div className="flex gap-5">
       {task.files?.map((file, index) => (
@@ -1013,7 +1013,8 @@ useEffect(() => {
       rel="noopener noreferrer"
       className="text-blue-600 underline"
     >
-      <div className='flex-col'><img src='./pdf.png' className='h-[100px] w-[70px]'/> {file.name}</div>
+      <div className='flex-col'><img src='./pdf.png'                           className="h-[80px] w-[60px] sm:h-[100px] sm:w-[70px]"
+/> {file.name}</div>
     </a>
   </div>
 ))}
@@ -1028,7 +1029,8 @@ useEffect(() => {
       </div>
       <div >
       <div className='flex justify-center'>
-      <button onClick={toggleForm} className='bg-blue-500 border-1 rounded-[10px] mb-5 px-2 py-1'>
+      <button onClick={toggleForm}       className="bg-blue-500 border-1 rounded-[10px] mb-5 px-4 py-2 text-sm sm:text-base"
+>
         {isFormVisible ? 'cancel' : 'Create New Task'}
       </button>
       </div>
@@ -1036,7 +1038,7 @@ useEffect(() => {
   <div className="flex justify-center mt-6 px-4">
   <form
     onSubmit={handleSubmit(onSubmit)}
-    className="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4 sm:p-6 space-y-4"
+        className="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4 sm:p-6 space-y-4"
   >
     <h2 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">
       Create New Task
