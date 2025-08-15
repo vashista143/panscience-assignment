@@ -392,49 +392,60 @@ useEffect(() => {
         </div>
         </div>
       {showadduserform && (
-  <div className="absolute left-0 mt-2 w-[20%] ml-2 border rounded-lg shadow-lg z-50 pb-4 pt-3 px-4">
+  <div className="absolute left-0 right-0 mx-auto mt-2 w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] border rounded-lg shadow-lg z-50 pb-4 pt-3 px-4 bg-white">
     <form onSubmit={handleSubmit(addusersubmit)}>
-      <h3 className="text-md font-semibold mb-2">Add New User</h3>
-      <label>Enter username</label>
+      <h3 className="text-md font-semibold mb-4 text-center">Add New User</h3>
+
+      {/* Username */}
+      <label className="block text-sm font-medium">Enter username</label>
       <input
         {...register("name", { required: "Username is required" })}
-        className="w-full border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="w-full border border-gray-300 rounded-md px-2 py-1 mb-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         type="text"
       />
-      {errors.username && <p className="text-red-500">{errors.username.message}</p>}
-      <label>Enter Email</label>
+      {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
+
+      {/* Email */}
+      <label className="block text-sm font-medium mt-2">Enter Email</label>
       <input
         {...register("email", { required: "Email is required" })}
-        className="w-full border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="w-full border border-gray-300 rounded-md px-2 py-1 mb-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         type="email"
       />
-      {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-      <label>Enter Password</label>
+      {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+
+      {/* Password */}
+      <label className="block text-sm font-medium mt-2">Enter Password</label>
       <input
         {...register("password", { required: "Password is required" })}
-        className="w-full border border-gray-300 rounded-md px-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        className="w-full border border-gray-300 rounded-md px-2 py-1 mb-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
         type="password"
       />
-      {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+      {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
 
-      <label>Select Role</label>
+      {/* Role */}
+      <label className="block text-sm font-medium mt-2">Select Role</label>
       <select
         {...register("role", { required: "Role is required" })}
-        className="border border-gray-300 mt-3 ml-2 rounded-md"
+        className="w-full border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-indigo-400"
       >
+        <option value="">Select a role</option>
         <option value="user">User</option>
         <option value="admin">Admin</option>
       </select>
-      {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+      {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
 
-      <br />
-      
+      {/* Submit */}
       <div className="flex justify-center">
-        <input type="submit" className="bg-blue-500 px-3 py-1 rounded-md mt-3" />
+        <input
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-1.5 rounded-md mt-4 hover:bg-blue-600 transition duration-200"
+        />
       </div>
     </form>
   </div>
 )}
+
 
       {showDetails && (
                 <div className="absolute right-0 mt-2 mr-2 bg-[#6363a0] text-white border rounded-lg shadow-lg w-fit z-50 pb-4 pt-3 px-4">
