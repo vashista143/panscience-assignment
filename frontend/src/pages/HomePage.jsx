@@ -624,7 +624,7 @@ useEffect(() => {
         <div className="w-full sm:w-[80%] lg:w-[50%] bg-white border border-gray-300 rounded-xl shadow-lg p-4">
           
           {/* Title & Edit */}
-          <div className="flex flex-col sm:flex-row justify-between sm:items-center border-b border-gray-200 pb-2 mb-2 gap-2">
+          <div className="flex flex-row sm:flex-row justify-between sm:items-center border-b border-gray-200 pb-2 mb-2 gap-2">
             {editTaskId === task._id ? (
               <input
                 value={editForm.title}
@@ -675,7 +675,7 @@ useEffect(() => {
           </div>
 
           {/* Status & Due Date */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t border-gray-200 pt-2 gap-2">
+          <div className="flex flex-row sm:flex-row sm:justify-between sm:items-center border-t border-gray-200 pt-2 gap-2">
             <div>
               <span className="font-medium">Status: </span>
               {editTaskId === task._id ? (
