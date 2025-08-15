@@ -102,7 +102,7 @@ const handleEditUser = (user) => {
 
 const handleUserEditSubmit = async (data) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/auth/updateuser/${editUserId}`, {
+    const res = await fetch(`https://panscience-assignment-nfvf.onrender.com/api/auth/updateuser/${editUserId}`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -126,7 +126,7 @@ const handleUserEditSubmit = async (data) => {
 
 const handleDeleteUser = async (user) => {
   try {
-    const res = await fetch(`http://localhost:5000/api/auth/delete/${user._id}`, {
+    const res = await fetch(`https://panscience-assignment-nfvf.onrender.com/api/auth/delete/${user._id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -151,7 +151,7 @@ const handleDeleteUser = async (user) => {
 };
 const handleSave = async () => {
   try {
-    const res = await fetch("http://localhost:5000/api/task/updatetask", {
+    const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/updatetask", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -170,7 +170,7 @@ const handleSave = async () => {
 
   const handleDelete=async(task)=>{
     try{
-      const res=await fetch("http://localhost:5000/api/task/deletetask",{
+      const res=await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/deletetask",{
         method: "POST",
         credentials: "include",
         headers: {
@@ -189,7 +189,7 @@ const handleSave = async () => {
   const addusersubmit=async (data)=>{
     console.log(data)
     try {
-    const res = await fetch("http://localhost:5000/api/auth/adduser", {
+    const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/auth/adduser", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -227,7 +227,7 @@ const onadminSubmit = (userId) => async (data) => {
       formData.append("files", file); // 👈 important: must match 'files' in multer
     });
 
-    const res = await fetch("http://localhost:5000/api/task/addtask", {
+    const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/addtask", {
       method: "POST",
       credentials: "include",
       body: formData, // no content-type header
@@ -264,7 +264,7 @@ const onadminSubmit = (userId) => async (data) => {
     });
     console.log("add task started", formData)
     try {
-      const res = await fetch("http://localhost:5000/api/task/addtask", {
+      const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/addtask", {
         method: "POST",
         credentials: "include",
         body: formData, 
@@ -284,7 +284,7 @@ const onadminSubmit = (userId) => async (data) => {
   }
   const getUsers = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/task/getusers", {
+      const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/getusers", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -307,7 +307,7 @@ const onadminSubmit = (userId) => async (data) => {
   };
   const getTasks = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/task/gettasks", {
+      const res = await fetch("https://panscience-assignment-nfvf.onrender.com/api/task/gettasks", {
         method: "GET",
         credentials: "include",
         headers: {
