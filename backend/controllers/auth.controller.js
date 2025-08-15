@@ -26,8 +26,8 @@ export const signup = async(req,res)=>{
         res.cookie("jwt", token, {
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "Strict",
-        secure: false,
+        sameSite: "None",
+        secure: true,
         });
         return res.status(200).json({_id: newuser._id,
       name: newuser.name,
@@ -52,8 +52,8 @@ export const login = async(req,res)=>{
         res.cookie("jwt", token, {
         maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "Strict",
-        secure: false,
+        sameSite: "None",
+        secure: ture,
         });
         return res.status(200).json({
         _id: user._id,
@@ -72,8 +72,8 @@ export const logout = async(req,res)=>{
     try {
         res.clearCookie("jwt", {
   httpOnly: true,
-  sameSite: "Strict",
-  secure: false
+  sameSite: "None",
+  secure: true
 });
         return res.status(200).json({message:"logged out succesfully"})
     } catch (error) {
